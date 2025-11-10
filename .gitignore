@@ -50,3 +50,19 @@ jspm_packages
 .yarn-integrity
 
 package-lock.json
+. v s / 
+ 
+ . v s / 
+
+# Ignore Visual Studio / VS Code folders
+.vs/
+.vscode/
+
+# Ignore node modules
+node_modules/
+
+# Ignore environment files
+.env
+
+ 
+ 

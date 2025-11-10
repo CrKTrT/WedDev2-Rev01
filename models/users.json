@@ -1,0 +1,12 @@
+{
+  "file": "./models/users.json",
+  "users": [
+    {
+      "firstName": "Rajkumar",
+      "lastName": "TIWARI",
+      "email": "rajkumar.tiwari31@outlook.com",
+      "password": "123456789",
+      "_id": "24e1f533-4834-4883-8994-75e344344c25"
+    }
+  ]
+}
