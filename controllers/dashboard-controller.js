@@ -1,32 +1,47 @@
-import { playlistStore } from "../models/playlist-store.js";
+import { stationStore } from "../models/station-store.js";
+import { reportStore } from "../models/report-store.js";
 import { accountsController } from "./accounts-controller.js";
 
 export const dashboardController = {
+    //here showing all stations for the used who loggedin at the time
   async index(request, response) {
     const loggedInUser = await accountsController.getLoggedInUser(request);
+    if (!loggedInUser) {
+      response.redirect("/login");
+      return;
+    }
+
+    const stations = await stationStore.getStationsByUserId(loggedInUser._id);
     const viewData = {
-      title: "Playlist Dashboard",
-      playlists: await playlistStore.getPlaylistsByUserId(loggedInUser._id),
+      title: "Weather Dashboard",
+      user: loggedInUser,
+      stations,
     };
-    console.log("dashboard rendering");
+    
+    console.log("dashboard rendering for:", loggedInUser.email);
     response.render("dashboard-view", viewData);
   },
 
-  async addPlaylist(request, response) {
+  //Here a new station is being added [changing playlist to station]
+ async addStation(request, response) {
     const loggedInUser = await accountsController.getLoggedInUser(request);
-    const newPlayList = {
-      title: request.body.title,
+    const newStation = {
+      name: request.body.name,
+      lat: Number(request.body.lat),
+      lng: Number(request.body.lng),
       userid: loggedInUser._id,
     };
-    console.log(`adding playlist ${newPlayList.title}`);
-    await playlistStore.addPlaylist(newPlayList);
+
+    console.log(`Adding new station: ${newStation.name}`);
+    await stationStore.addStation(newStation);
     response.redirect("/dashboard");
   },
 
-  async deletePlaylist(request, response) {
-    const playlistId = request.params.id;
-    console.log(`Deleting Playlist ${playlistId}`);
-    await playlistStore.deletePlaylistById(playlistId);
+  //Here a new station is being deleted [changing playlist to station]
+  async deleteStation(request, response) {
+    const stationId = request.params.id;
+    console.log(`Deleting station ${stationId}`);
+    await stationStore.deleteStationById(stationId);
     response.redirect("/dashboard");
   },
 };

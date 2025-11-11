@@ -1,16 +1,17 @@
-import { playlistStore } from "../models/station-store.js";
-import { trackStore } from "../models/report-store.js";
-import { playlistAnalytics } from "../utils/station-analytics.js";
+import { stationStore } from "../models/station-store.js";
+import { reportStore } from "../models/report-store.js";
+import { stationAnalytics } from "../utils/station-analytics.js";
 
 export const stationController = {
+
 // Here I am changing from playlist to Station and Reporting view 
 async index(request, response) {
     const station = await stationStore.getStationById(request.params.id);
-    const reports = await reportStore.getReportsById(request.params.id);
+    const reports = await reportStore.getReportsByStationId(request.params.id);
 
     const latestReport = reports.length > 0 ? reports[reports.length - 1] : null;
     const maxMin = stationAnalytics.calculateMaxMin(reports);
-    
+
     const viewData = {
       title: station.name,
       station,
@@ -22,19 +23,18 @@ async index(request, response) {
     response.render("station-view", viewData);
   },
 
-  // Here we are adding station reports
+  // Here I am adding station reports
   async addReport(request, response) {
     const station = await stationStore.getStationById(request.params.id);
 
     const newReport = {
-    time: new Date().toISOString(),  
-    time: new Date().toISOString(),
+      time: new Date().toISOString(),
       code: request.body.code,
       temp: Number(request.body.temp),
       windSpeed: Number(request.body.windSpeed),
       windDirection: Number(request.body.windDirection),
       pressure: Number(request.body.pressure),
-  },
+    };
 
   console.log(`Adding new report for station ${station.name}`);
     await reportStore.addReport(station._id, newReport);
@@ -42,8 +42,8 @@ async index(request, response) {
     response.redirect("/station/" + station._id);
   },
 
-    // Here we are deleting station reports
-  async deleteReport(request, response) {
+    // Here I am deleting station reports
+   async deleteReport(request, response) {
     const stationId = request.params.stationid;
     const reportId = request.params.reportid;
 
