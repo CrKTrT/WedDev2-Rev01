@@ -1,36 +1,55 @@
-import { playlistStore } from "../models/playlist-store.js";
-import { trackStore } from "../models/track-store.js";
-import { playlistAnalytics } from "../utils/playlist-analytics.js";
+import { playlistStore } from "../models/station-store.js";
+import { trackStore } from "../models/report-store.js";
+import { playlistAnalytics } from "../utils/station-analytics.js";
 
-export const playlistController = {
-  async index(request, response) {
-    const playlist = await playlistStore.getPlaylistById(request.params.id);
-    const shortestTrack = playlistAnalytics.getShortestTrack(playlist);
+export const stationController = {
+// Here I am changing from playlist to Station and Reporting view 
+async index(request, response) {
+    const station = await stationStore.getStationById(request.params.id);
+    const reports = await reportStore.getReportsById(request.params.id);
+
+    const latestReport = reports.length > 0 ? reports[reports.length - 1] : null;
+    const maxMin = stationAnalytics.calculateMaxMin(reports);
+    
     const viewData = {
-      title: "Playlist",
-      playlist: playlist,
-      shortestTrack: shortestTrack,
+      title: station.name,
+      station,
+      reports,
+      latest: latestReport,
+      max: maxMin.max,
+      min: maxMin.min,
     };
-    response.render("playlist-view", viewData);
+    response.render("station-view", viewData);
   },
 
-  async addTrack(request, response) {
-    const playlist = await playlistStore.getPlaylistById(request.params.id);
-    const newTrack = {
-      title: request.body.title,
-      artist: request.body.artist,
-      duration: Number(request.body.duration),
-    };
-    console.log(`adding track ${newTrack.title}`);
-    await trackStore.addTrack(playlist._id, newTrack);
-    response.redirect("/playlist/" + playlist._id);
+  // Here we are adding station reports
+  async addReport(request, response) {
+    const station = await stationStore.getStationById(request.params.id);
+
+    const newReport = {
+    time: new Date().toISOString(),  
+    time: new Date().toISOString(),
+      code: request.body.code,
+      temp: Number(request.body.temp),
+      windSpeed: Number(request.body.windSpeed),
+      windDirection: Number(request.body.windDirection),
+      pressure: Number(request.body.pressure),
   },
 
-  async deleteTrack(request, response) {
-    const playlistId = request.params.playlistid;
-    const trackId = request.params.trackid;
-    console.log(`Deleting Track ${trackId} from Playlist ${playlistId}`);
-    await trackStore.deleteTrack(request.params.trackId);
-    response.redirect("/playlist/" + playlistId);
+  console.log(`Adding new report for station ${station.name}`);
+    await reportStore.addReport(station._id, newReport);
+
+    response.redirect("/station/" + station._id);
+  },
+
+    // Here we are deleting station reports
+  async deleteReport(request, response) {
+    const stationId = request.params.stationid;
+    const reportId = request.params.reportid;
+
+    console.log(`Deleting Report ${reportId} from Station ${stationId}`);
+    await reportStore.deleteReport(reportId);
+
+    response.redirect("/station/" + stationId);
   },
 };
