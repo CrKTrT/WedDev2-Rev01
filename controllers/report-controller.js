@@ -1,29 +1,34 @@
-import { playlistStore } from "../models/playlist-store.js";
-import { trackStore } from "../models/track-store.js";
+import { stationStore } from "../models/station-store.js";
+import { reportStore } from "../models/report-store.js";
 
-export const trackController = {
+export const reprotController = {
   async index(request, response) {
-    const playlistId = request.params.playlistid;
-    const trackId = request.params.trackid;
-    console.log(`Editing Track ${trackId} from Playlist ${playlistId}`);
+    const stationId = request.params.stationid;
+    const reportId = request.params.reportid;
+    console.log(`Editing Track ${reportId} from Station ${stationtId}`);
+
     const viewData = {
-      title: "Edit Song",
-      playlist: await playlistStore.getPlaylistById(playlistId),
-      track: await trackStore.getTrackById(trackId),
+      title: "Edit Weather Report",
+      station: await stationStore.getStationById(stationId),
+      report: await reportStore.getReportId(reportId),
     };
-    response.render("track-view", viewData);
+    response.render("report-view", viewData);
   },
 
   async update(request, response) {
-    const playlistId = request.params.playlistid;
-    const trackId = request.params.trackid;
+    const stationId = request.params.stationid;
+    const reportId = request.params.reportid;
+    
     const updatedTrack = {
-      title: request.body.title,
-      artist: request.body.artist,
-      duration: Number(request.body.duration),
+      code: request.body.code,
+      temp: Number(request.body.temp),
+      windSpeed: Number(request.body.windSpeed),
+      pressure: Number(request.body.pressure),
+      date: request.body.date || new Date().toISOString(),
     };
-    console.log(`Updating Track ${trackId} from Playlist ${playlistId}`);
-    await trackStore.updateTrack(trackId, updatedTrack);
-    response.redirect("/playlist/" + playlistId);
+
+    console.log(`Updating Report ${reportId} from Station ${stationId}`);
+    await reportStore.updateReport(reportId, updatedReport);
+    response.redirect("/station/" + stationId);
   },
 };
