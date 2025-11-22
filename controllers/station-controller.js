@@ -6,8 +6,9 @@ export const stationController = {
 
 // Here I am changing from playlist to Station and Reporting view 
 async index(request, response) {
-    const station = await stationStore.getStationById(request.params.id);
-    const reports = await reportStore.getReportsByStationId(request.params.id);
+    const stationId = request.params.stationId;
+    const station = await stationStore.getStationById(stationId);
+    const reports = await reportStore.getReportsByStationId(stationId);
 
     const latestReport = reports.length > 0 ? reports[reports.length - 1] : null;
     const maxMin = stationAnalytics.calculateMaxMin(reports);
@@ -25,7 +26,8 @@ async index(request, response) {
 
   // Here I am adding station reports
   async addReport(request, response) {
-    const station = await stationStore.getStationById(request.params.id);
+    const stationId = request.params.stationId;
+    const station = await stationStore.getStationById(stationId);
 
     const newReport = {
       time: new Date().toISOString(),
@@ -37,15 +39,15 @@ async index(request, response) {
     };
 
   console.log(`Adding new report for station ${station.name}`);
-    await reportStore.addReport(station._id, newReport);
+    await reportStore.addReport(stationId, newReport);
 
-    response.redirect("/station/" + station._id);
+    response.redirect("/station/" + stationId);
   },
 
     // Here I am deleting station reports
    async deleteReport(request, response) {
-    const stationId = request.params.stationid;
-    const reportId = request.params.reportid;
+    const stationId = request.params.stationId;
+    const reportId = request.params.reportId;
 
     console.log(`Deleting Report ${reportId} from Station ${stationId}`);
     await reportStore.deleteReport(reportId);

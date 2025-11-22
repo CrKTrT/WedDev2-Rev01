@@ -1,10 +1,10 @@
 import { stationStore } from "../models/station-store.js";
 import { reportStore } from "../models/report-store.js";
 
-export const reprotController = {
+export const reportController = {
   async index(request, response) {
-    const stationId = request.params.stationid;
-    const reportId = request.params.reportid;
+    const stationId = request.params.stationId;
+    const reportId = request.params.reportId;
     console.log(`Editing Track ${reportId} from Station ${stationId}`);
 
     const viewData = {
@@ -16,8 +16,8 @@ export const reprotController = {
   },
 
   async update(request, response) {
-    const stationId = request.params.stationid;
-    const reportId = request.params.reportid;
+    const stationId = request.params.stationId;
+    const reportId = request.params.reportId;
     
     const updatedReport = {
       code: request.body.code,

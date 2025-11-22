@@ -7,6 +7,7 @@ import { aboutController } from "./controllers/about-controller.js";
 
 export const router = express.Router();
 
+// Here account related controls added - login, signup, logout etc
 router.get("/", accountsController.index);
 router.get("/login", accountsController.login);
 router.get("/signup", accountsController.signup);
@@ -14,14 +15,15 @@ router.get("/logout", accountsController.logout);
 router.post("/register", accountsController.register);
 router.post("/authenticate", accountsController.authenticate);
 
+// Dashboard related control where station details add, delete etc
 router.get("/dashboard", dashboardController.index);
 router.post("/dashboard/addstation", dashboardController.addStation);
 router.get("/dashboard/deletestation/:id", dashboardController.deleteStation);
+router.post("/station/:stationId/autoread", dashboardController.autoRead);
 
-router.get("/station/:id", stationController.index);
+// Here getting station and report 
+router.get("/station/:stationId", stationController.index);
 router.post("/station/:id/addreport", reportController.addReport);
-router.get("/station/:stationid/deletereport/:reportid", reportController.deleteReport);
-
-router.post("/station/:id/autoread", dashboardController.autoRead);
+router.get("/station/:stationId/deletereport/:reportid", reportController.deleteReport);
 
 router.get("/about", aboutController.index);
