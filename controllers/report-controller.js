@@ -5,12 +5,12 @@ export const reprotController = {
   async index(request, response) {
     const stationId = request.params.stationid;
     const reportId = request.params.reportid;
-    console.log(`Editing Track ${reportId} from Station ${stationtId}`);
+    console.log(`Editing Track ${reportId} from Station ${stationId}`);
 
     const viewData = {
       title: "Edit Weather Report",
       station: await stationStore.getStationById(stationId),
-      report: await reportStore.getReportId(reportId),
+      report: await reportStore.getReportById(reportId),
     };
     response.render("report-view", viewData);
   },
@@ -19,7 +19,7 @@ export const reprotController = {
     const stationId = request.params.stationid;
     const reportId = request.params.reportid;
     
-    const updatedTrack = {
+    const updatedReport = {
       code: request.body.code,
       temp: Number(request.body.temp),
       windSpeed: Number(request.body.windSpeed),
