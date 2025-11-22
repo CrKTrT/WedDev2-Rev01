@@ -20,13 +20,13 @@ export const reportStore = {
   },
 
   //Here report related to a station 
-  async getReportsByStationId(id) {
+  async getReportsByStationId(stationId) {
     await db.read();
     return db.data.reports.filter((report) => report.stationid === stationId);
   },
 
   //here report generation by a ID
-  async getReportById(id) {
+  async getReportById(reportId) {
     await db.read();
     return db.data.reports.find((report) => report._id === reportId);
   },
