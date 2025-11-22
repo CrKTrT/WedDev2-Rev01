@@ -4,7 +4,7 @@ import { initStore } from "../utils/store-utils.js";
 const db = initStore("reports");
 
 export const reportStore = {
-  async getAllTracks() {
+  async getAllReports() {
     await db.read();
     return db.data.reports;
   },
