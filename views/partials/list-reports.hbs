@@ -2,8 +2,9 @@
   <thead>
     <tr>
       <th>Code</th>
-      <th>Temperature (°C)</th>
+      <th>Temperature (&deg;C)</th>
       <th>Wind Speed (km/h)</th>
+      <th>Wind Direction</th>
       <th>Pressure (hPa)</th>
       <th></th>
       <th></th>
@@ -14,8 +15,9 @@
     {{#each reports}}
     <tr>
       <td>{{code}}</td>
-      <td>{{temp}}</td>
+      <td>{{temp}} &deg;C</td>
       <td>{{windSpeed}}</td>
+      <td>{{windDirection}}</td>
       <td>{{pressure}}</td>
 
       <td>
@@ -33,3 +35,4 @@
     {{/each}}
   </tbody>
 </table>
+
