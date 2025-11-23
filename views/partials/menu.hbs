@@ -16,5 +16,6 @@
 </nav>
 
 <script>
-  document.getElementById("{{active}}").classList.add("is-primary");
+  const item = document.getElementById("{{active}}");
+  if (item) item.classList.add("is-primary");
 </script>

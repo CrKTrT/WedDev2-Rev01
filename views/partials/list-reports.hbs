@@ -1,7 +1,7 @@
 <table class="table is-fullwidth">
   <thead>
     <tr>
-      <th>Station Name</th>
+      <th>Code</th>
       <th>Temperature (°C)</th>
       <th>Wind Speed (km/h)</th>
       <th>Pressure (hPa)</th>
@@ -9,23 +9,24 @@
       <th></th>
     </tr>
   </thead>
+
   <tbody>
-    {{#each station.reports}}
+    {{#each reports}}
     <tr>
       <td>{{code}}</td>
-      <td>{{temperature}}</td>
+      <td>{{temp}}</td>
       <td>{{windSpeed}}</td>
       <td>{{pressure}}</td>
 
       <td>
         <a href="/station/{{../station._id}}/deletereport/{{_id}}" class="button">
-          {{>icons/delete}}
+          {{> icons/delete}}
         </a>
       </td>
 
       <td>
         <a href="/station/{{../station._id}}/editreport/{{_id}}" class="button">
-          {{>icons/edit}}
+          {{> icons/edit}}
         </a>
       </td>
     </tr>

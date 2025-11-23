@@ -19,7 +19,7 @@ router.post("/authenticate", accountsController.authenticate);
 router.get("/dashboard", dashboardController.index);
 router.post("/dashboard/addstation", dashboardController.addStation);
 router.get("/dashboard/deletestation/:stationId", dashboardController.deleteStation);
-router.post("/station/:stationId/autoread", dashboardController.autoRead);
+
 
 // Here getting station and report 
 router.get("/station/:stationId", stationController.index);
