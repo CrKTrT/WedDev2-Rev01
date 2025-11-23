@@ -1,1 +1,19 @@
-{"file":"./models/stations.json","stations":[]}
+{
+  "file": "./models/stations.json",
+  "stations": [
+    {
+      "name": "Tramore",
+      "lat": null,
+      "lng": null,
+      "userid": "24e1f533-4834-4883-8994-75e344344c25",
+      "_id": "deb6e42d-49c6-448e-a749-ff0d25a2f3d1"
+    },
+    {
+      "name": "Dunmore",
+      "lat": null,
+      "lng": null,
+      "userid": "24e1f533-4834-4883-8994-75e344344c25",
+      "_id": "17cf5286-9a42-439a-ab4d-9ff773bc5449"
+    }
+  ]
+}
