@@ -1,0 +1,44 @@
+<div class="box has-text-centered">
+  <h2 class="title is-4">{{station.title}}</h2>
+
+  {{!-- Weather Icon --}}
+  <div>
+    {{#if latest.code}}
+      <img src="http://openweathermap.org/img/wn/{{latest.code}}d@2x.png" alt="Weather Icon">
+    {{/if}}
+  </div>
+
+  <div class="columns is-centered mt-4">
+
+    {{!-- Temperature Card --}}
+    <div class="column is-3">
+      <div class="box">
+        <h3 class="subtitle is-6">Temperature</h3>
+        <p><strong>{{latest.temp}} °C</strong></p>
+        <p>Min: {{minTemp}} °C</p>
+        <p>Max: {{maxTemp}} °C</p>
+      </div>
+    </div>
+
+    {{!-- Wind Card --}}
+    <div class="column is-3">
+      <div class="box">
+        <h3 class="subtitle is-6">Wind</h3>
+        <p><strong>{{latest.windSpeed}} km/h</strong></p>
+        <p>Min: {{minWind}} km/h</p>
+        <p>Max: {{maxWind}} km/h</p>
+      </div>
+    </div>
+
+    {{!-- Pressure Card --}}
+    <div class="column is-3">
+      <div class="box">
+        <h3 class="subtitle is-6">Pressure</h3>
+        <p><strong>{{latest.pressure}} hPa</strong></p>
+        <p>Min: {{minPressure}} hPa</p>
+        <p>Max: {{maxPressure}} hPa</p>
+      </div>
+    </div>
+
+  </div>
+</div>

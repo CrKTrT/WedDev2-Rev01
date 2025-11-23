@@ -1,16 +1,21 @@
 {{> menu active="station"}}
 
 <section class="section">
+
   <div class="title">
     {{station.name}}
   </div>
 
+  {{!-- Summary Cards --}}
   {{#if latest}}
-    <div class="subtitle">
-      Latest Weather: {{latest.temp}}°C, Wind {{latest.windSpeed}} km/h
-    </div>
+    {{> station-summary}}
+  {{else}}
+    <p>No reports yet. Add your first report below.</p>
   {{/if}}
 
+  <hr>
   {{> list-reports}}
+  <hr>
+
   {{> add-reports}}
 </section>

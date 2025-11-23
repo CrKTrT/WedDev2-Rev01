@@ -1,4 +1,4 @@
-statimport { stationStore } from "../models/station-store.js";
+import { stationStore } from "../models/station-store.js";
 import { reportStore } from "../models/report-store.js";
 import { stationAnalytics } from "../utils/station-analytics.js";
 
@@ -18,8 +18,15 @@ async index(request, response) {
       station,
       reports,
       latest: latestReport,
-      max: maxMin.max,
-      min: maxMin.min,
+    //  max / min summary fields as added in the station-summary partial
+      minTemp: maxMin.min.temp,
+      maxTemp: maxMin.max.temp,
+
+      minWind: maxMin.min.windSpeed,
+      maxWind: maxMin.max.windSpeed,
+
+      minPressure: maxMin.min.pressure,
+      maxPressure: maxMin.max.pressure,
     };
     response.render("station-view", viewData);
   },
