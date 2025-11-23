@@ -18,12 +18,12 @@ router.post("/authenticate", accountsController.authenticate);
 // Dashboard related control where station details add, delete etc
 router.get("/dashboard", dashboardController.index);
 router.post("/dashboard/addstation", dashboardController.addStation);
-router.get("/dashboard/deletestation/:id", dashboardController.deleteStation);
+router.get("/dashboard/deletestation/:stationId", dashboardController.deleteStation);
 router.post("/station/:stationId/autoread", dashboardController.autoRead);
 
 // Here getting station and report 
 router.get("/station/:stationId", stationController.index);
-router.post("/station/:id/addreport", reportController.addReport);
-router.get("/station/:stationId/deletereport/:reportid", reportController.deleteReport);
+router.post("/station/:stationId/addreport", reportController.addReport);
+router.get("/station/:stationId/deletereport/:reportId", reportController.deleteReport);
 
 router.get("/about", aboutController.index);

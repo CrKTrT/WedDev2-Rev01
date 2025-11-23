@@ -18,7 +18,7 @@ export const reportController = {
   async update(request, response) {
     const stationId = request.params.stationId;
     const reportId = request.params.reportId;
-    
+
     const updatedReport = {
       code: request.body.code,
       temp: Number(request.body.temp),
@@ -29,6 +29,34 @@ export const reportController = {
 
     console.log(`Updating Report ${reportId} from Station ${stationId}`);
     await reportStore.updateReport(reportId, updatedReport);
+    response.redirect("/station/" + stationId);
+  },
+
+  // Here adding a new report
+  async addReport(request, response) {
+    const stationId = request.params.stationId;
+
+    const newReport = {
+      time: new Date().toISOString(),
+      code: request.body.code,
+      temp: Number(request.body.temp),
+      windSpeed: Number(request.body.windSpeed),
+      windDirection: Number(request.body.windDirection),
+      pressure: Number(request.body.pressure),
+    };
+
+    console.log(`Adding new report for station ${stationId}`);
+    await reportStore.addReport(stationId, newReport);
+    response.redirect("/station/" + stationId);
+  },
+
+  // Here deleting a report
+  async deleteReport(request, response) {
+    const stationId = request.params.stationId;
+    const reportId = request.params.reportId;
+
+    console.log(`Deleting Report ${reportId} from Station ${stationId}`);
+    await reportStore.deleteReport(reportId);
     response.redirect("/station/" + stationId);
   },
 };
