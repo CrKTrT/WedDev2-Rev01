@@ -3,24 +3,10 @@
   "stations": [
     {
       "name": "Tramore",
-      "lat": null,
-      "lng": null,
+      "lat": 52.161,
+      "lng": -7.152,
       "userid": "24e1f533-4834-4883-8994-75e344344c25",
-      "_id": "deb6e42d-49c6-448e-a749-ff0d25a2f3d1"
-    },
-    {
-      "name": "Dunmore",
-      "lat": null,
-      "lng": null,
-      "userid": "24e1f533-4834-4883-8994-75e344344c25",
-      "_id": "17cf5286-9a42-439a-ab4d-9ff773bc5449"
-    },
-    {
-      "name": "Tramore",
-      "lat": null,
-      "lng": null,
-      "userid": "24e1f533-4834-4883-8994-75e344344c25",
-      "_id": "25e2a5bf-6d59-4799-b765-4b3265f2e350"
+      "_id": "039a9f56-63d5-498a-9cae-f77d382dc8f8"
     }
   ]
 }

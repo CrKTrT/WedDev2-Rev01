@@ -3,11 +3,15 @@
   <h2 class="title">
     {{name}}
   </h2>
+
+  <p>Lat: {{lat}}, Lng: {{lng}}</p>
+
   <a href="/station/{{_id}}" class="button">
-    {{>icons/open}}
+    {{> icons/open}}
   </a>
   <a href="/dashboard/deletestation/{{_id}}" class="button">
-    {{>icons/delete}}
+    {{> icons/delete}}
   </a>
 </div>
 {{/each}}
+
