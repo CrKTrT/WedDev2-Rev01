@@ -2,20 +2,38 @@
 
 <section class="section">
 
-  <div class="title">
-    {{station.name}}
+  <!-- Station Title -->
+  <div class="level">
+    <div class="level-left">
+      <h1 class="title">{{station.name}}</h1>
+    </div>
+
+    <!-- Delete Station Button -->
+    <div class="level-right">
+      <a href="/station/{{station._id}}/delete" class="button is-danger">
+        Delete Station
+      </a>
+    </div>
   </div>
 
-  {{!-- Summary Cards --}}
+  <!-- Summary Cards -->
   {{#if latest}}
     {{> station-summary}}
   {{else}}
-    <p>No reports yet. Add your first report below.</p>
+    <div class="notification is-info">
+      No reports yet. Add the first report below.
+    </div>
   {{/if}}
 
   <hr>
+
+  <!-- List of Reports -->
   {{> list-reports}}
+
   <hr>
 
+  <!-- Add Report Form -->
   {{> add-reports}}
+
 </section>
+

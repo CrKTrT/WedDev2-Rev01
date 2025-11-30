@@ -1,37 +1,53 @@
-<table class="table is-fullwidth">
+<table class="table is-fullwidth is-striped is-hoverable">
   <thead>
     <tr>
+      <th>Date / Time</th>
       <th>Code</th>
-      <th>Temperature (&deg;C)</th>
-      <th>Wind Speed (km/h)</th>
-      <th>Wind Direction</th>
+      <th>Temp (°C)</th>
+      <th>Wind (km/h)</th>
+      <th>Direction</th>
       <th>Pressure (hPa)</th>
-      <th></th>
+      <th>Icon</th>
       <th></th>
     </tr>
   </thead>
 
   <tbody>
-    {{#each reports}}
-    <tr>
-      <td>{{code}}</td>
-      <td>{{temp}} &deg;C</td>
-      <td>{{windSpeed}}</td>
-      <td>{{windDirection}}</td>
-      <td>{{pressure}}</td>
+    {{#each ../reports}}
+      <tr>
+        <!-- Timestamp -->
+        <td>{{time}}</td>
 
-      <td>
-        <a href="/station/{{../station._id}}/deletereport/{{_id}}" class="button">
-          {{> icons/delete}}
-        </a>
-      </td>
+        <!-- Weather Code -->
+        <td>{{code}}</td>
 
-      <td>
-        <a href="/station/{{../station._id}}/editreport/{{_id}}" class="button">
-          {{> icons/edit}}
-        </a>
-      </td>
-    </tr>
+        <!-- Temperature -->
+        <td>{{temp}}</td>
+
+        <!-- Wind Speed -->
+        <td>{{windSpeed}}</td>
+
+        <!-- Wind Direction -->
+        <td>{{windDirection}}°</td>
+
+        <!-- Pressure -->
+        <td>{{pressure}}</td>
+
+        <!-- Weather Icon -->
+        <td>
+          {{#if code}}
+            <img src="http://openweathermap.org/img/wn/{{code}}d.png" alt="icon">
+          {{/if}}
+        </td>
+
+        <!-- Delete Report Button -->
+        <td>
+          <a href="/station/{{../station._id}}/deletereport/{{_id}}" 
+             class="button is-danger is-small">
+            Delete
+          </a>
+        </td>
+      </tr>
     {{/each}}
   </tbody>
 </table>
