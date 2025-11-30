@@ -65,6 +65,7 @@ async index(request, response) {
   //Here option to delete the station itself
     await stationStore.deleteStationByID(stationId);
 
+   // Here delete all reports under the added station
     await reportStore.deleteReportByStationId(stationId);
 
     response.redirect("/dashboard");
