@@ -40,8 +40,10 @@ export const stationStore = {
   async deleteStationById(id) {
     await db.read();
     const index = db.data.stations.findIndex((station) => station._id === id);
+    if (index !== -1) {
     db.data.stations.splice(index, 1);
     await db.write();
+    }
   },
 
   //Here deleting all stations
