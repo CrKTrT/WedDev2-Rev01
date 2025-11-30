@@ -61,4 +61,13 @@ async index(request, response) {
 
     response.redirect("/station/" + stationId);
   },
+
+  //Here option to delete the station itself
+    await stationStore.deleteStationByID(stationId);
+
+    await reportStore.deleteReportByStationId(stationId);
+
+    response.redirect("/dashboard");
+   }
+
 };

@@ -1,4 +1,15 @@
 {
   "file": "./models/reports.json",
-  "reports": []
+  "reports": [
+    {
+      "time": "2025-11-30T21:03:21.205Z",
+      "code": "1",
+      "temp": 10,
+      "windSpeed": 30,
+      "windDirection": null,
+      "pressure": 1,
+      "_id": "5868dc4d-6d77-40a9-a11e-c16d361dddb0",
+      "stationid": "039a9f56-63d5-498a-9cae-f77d382dc8f8"
+    }
+  ]
 }
