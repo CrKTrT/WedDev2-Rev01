@@ -4,6 +4,7 @@ import { initStore } from "../utils/store-utils.js";
 const db = initStore("reports");
 
 export const reportStore = {
+  // Here getting all reports 
   async getAllReports() {
     await db.read();
     return db.data.reports;
@@ -13,7 +14,7 @@ export const reportStore = {
   async addReport(stationId, report) {
     await db.read();
     report._id = v4();
-    report.stationid = stationId;
+    report.stationId = stationId;
     db.data.reports.push(report);
     await db.write();
     return report;
@@ -22,7 +23,7 @@ export const reportStore = {
   //Here report related to a station 
   async getReportsByStationId(stationId) {
     await db.read();
-    return db.data.reports.filter((report) => report.stationid === stationId);
+    return db.data.reports.filter((report) => report.stationId === stationId);
   },
 
   //here report generation by a ID
@@ -39,6 +40,15 @@ export const reportStore = {
       db.data.reports.splice(index, 1);
       await db.write();
     }
+  },
+
+  // Report deletion related to the station - all reports deletion
+  async deleteReportsByStationId(stationId) {
+    await db.read();
+    db.data.reports = db.data.reports.filter(
+      (report) => report.stationId !== stationId
+    );
+    await db.write();
   },
 
   //Here all reports deletion option
