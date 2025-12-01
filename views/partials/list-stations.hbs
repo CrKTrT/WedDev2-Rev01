@@ -1,10 +1,23 @@
 {{#each stations}}
 <div class="box box-link-hover-shadow">
-  <h2 class="title">
-    {{name}}
-  </h2>
+
+  <h2 class="title">{{name}}</h2>
 
   <p>Lat: {{lat}}, Lng: {{lng}}</p>
+
+  {{#if latest}}
+    <div>
+      <!-- Weather Icon -->
+      <img src="http://openweathermap.org/img/wn/{{latest.code}}d.png" alt="icon">
+
+      <!-- Latest Weather Summary -->
+      <p>Temp: {{latest.temp}}°C</p>
+      <p>Wind: {{latest.windSpeed}} km/h</p>
+      <p>Pressure: {{latest.pressure}} hPa</p>
+    </div>
+  {{else}}
+    <p>No readings yet.</p>
+  {{/if}}
 
   <a href="/station/{{_id}}" class="button">
     {{> icons/open}}
@@ -12,6 +25,7 @@
   <a href="/dashboard/deletestation/{{_id}}" class="button">
     {{> icons/delete}}
   </a>
+
 </div>
 {{/each}}
 
