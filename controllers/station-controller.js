@@ -52,7 +52,7 @@ async index(request, response) {
   },
 
     // Here I am deleting station reports
-   async deleteReport(request, response) {
+   async deleteStatReport(request, response) {
     const stationId = request.params.stationId;
     const reportId = request.params.reportId;
 
@@ -61,6 +61,11 @@ async index(request, response) {
 
     response.redirect("/station/" + stationId);
   },
+
+   async deleteStation(request, response) {
+    const stationId = request.params.stationId;
+
+    console.log(`Deleting Station ${stationId}`);
 
   //Here option to delete the station itself
     await stationStore.deleteStationById(stationId);
