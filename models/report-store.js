@@ -15,6 +15,11 @@ export const reportStore = {
     await db.read();
     report._id = v4();
     report.stationId = stationId;
+
+    //additonal step to add trend field for reporting
+    report.tempTrend = report.tempTrend || [];
+    report.trendLabels = report.trendLabels || [];
+    
     db.data.reports.push(report);
     await db.write();
     return report;

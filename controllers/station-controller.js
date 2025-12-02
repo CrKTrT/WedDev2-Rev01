@@ -1,6 +1,7 @@
 import { stationStore } from "../models/station-store.js";
 import { reportStore } from "../models/report-store.js";
 import { stationAnalytics } from "../utils/station-analytics.js";
+import { openWeatherService } from "../services/openweather-service.js"; //new addition for openWeatherService 
 
 export const stationController = {
 
@@ -27,14 +28,18 @@ async index(request, response) {
 
       minPressure: maxMin.min.pressure,
       maxPressure: maxMin.max.pressure,
+
+      //trend line reference code addition
+      tempTrend: latest?.testTrend || [],
+      trendLabels: latest?.trendLabels || []
     };
     response.render("station-view", viewData);
   },
 
-  // Here I am adding station reports
+  // Here I am adding station reports using openweather , reads will come as an auto reads
   async addReport(request, response) {
     const stationId = request.params.stationId;
-    const station = await stationStore.getStationById(stationId);
+    //const station = await stationStore.getStationById(stationId);
 
     const newReport = {
       time: new Date().toISOString(),
@@ -43,37 +48,80 @@ async index(request, response) {
       windSpeed: Number(request.body.windSpeed),
       windDirection: Number(request.body.windDirection),
       pressure: Number(request.body.pressure),
+       tempTrend: [],
+      trendLabels: [],
+
     };
 
-  console.log(`Adding new report for station ${station.name}`);
+  //console.log(`Adding new report for station ${station.name}`);
     await reportStore.addReport(stationId, newReport);
 
     response.redirect("/station/" + stationId);
   },
 
-    // Here I am deleting station reports
+  // new additon for weather reading from Openweather and eads will come as an auto reads
+
+  //step1 : autoreading 
+   async autoRead(request, response) {
+    const stationId = request.params.stationId;
+    const station = await stationStore.getStationById(stationId);
+
+  //step2: weather data fetching from openweather using lat, lang 
+    const weather = await openWeatherService.getCurrent(station.lat, station.lng);
+
+  //step3: weather data trends on forecasts using lat lang
+  const forecast = await openWeatherService.getForecast(station.lat, station.lng);
+
+    const tempTrend = [];
+    const trendLabels = [];
+
+    const list = forecast.list.slice(0, 10);
+
+    for (const item of list) {
+      tempTrend.push(item.main.temp);
+      trendLabels.push(item.dt_txt);
+  }
+
+    const newReport = {
+      time: new Date().toISOString(),
+      code: weather.weather[0].id,
+      icon: weather.weather[0].icon,
+      temp: weather.main.temp,
+      windSpeed: weather.wind.speed * 3.6,
+      windDirection: weather.wind.deg,
+      pressure: weather.main.pressure,
+      tempTrend,
+      trendLabels
+  };
+
+  await reportStore.addReport(stationId, newReport);
+    response.redirect("/station/" + stationId);
+  },
+
+  
+  // Here I am deleting station reports
    async deleteStatReport(request, response) {
     const stationId = request.params.stationId;
     const reportId = request.params.reportId;
 
-    console.log(`Deleting Report ${reportId} from Station ${stationId}`);
+    //console.log(`Deleting Report ${reportId} from Station ${stationId}`);
     await reportStore.deleteReport(reportId);
 
     response.redirect("/station/" + stationId);
   },
 
-   async deleteStation(request, response) {
-    const stationId = request.params.stationId;
+   //async deleteStation(request, response) {
+    //const stationId = request.params.stationId;
 
-    console.log(`Deleting Station ${stationId}`);
+    //console.log(`Deleting Station ${stationId}`);
 
   //Here option to delete the station itself
-    await stationStore.deleteStationById(stationId);
+   // await stationStore.deleteStationById(stationId);
 
    // Here delete all reports under the added station
-    await reportStore.deleteReportByStationId(stationId);
+    //await reportStore.deleteReportByStationId(stationId);
 
-    response.redirect("/dashboard");
-   }
+    //response.redirect("/dashboard");
+   //}
 
 };
