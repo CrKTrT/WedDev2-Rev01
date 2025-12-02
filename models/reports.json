@@ -10,6 +10,16 @@
       "pressure": 1,
       "_id": "5868dc4d-6d77-40a9-a11e-c16d361dddb0",
       "stationid": "039a9f56-63d5-498a-9cae-f77d382dc8f8"
+    },
+    {
+      "time": "2025-12-01T19:56:39.787Z",
+      "code": "1",
+      "temp": 10,
+      "windSpeed": 30,
+      "windDirection": null,
+      "pressure": 1,
+      "_id": "e7bf78e3-0793-4a20-bd2b-9e7d622afcbb",
+      "stationId": "6a25c830-5b93-47d9-8b32-d26e0c752c90"
     }
   ]
 }
