@@ -30,8 +30,8 @@ async index(request, response) {
       maxPressure: maxMin.max.pressure,
 
       //trend line reference code addition
-      tempTrend: latest?.testTrend || [],
-      trendLabels: latest?.trendLabels || []
+      tempTrend: latestReport?.tempTrend || [],
+      trendLabels: latestReport?.trendLabels || [],
     };
     response.render("station-view", viewData);
   },
@@ -45,10 +45,10 @@ async index(request, response) {
       time: new Date().toISOString(),
       code: request.body.code,
       temp: Number(request.body.temp),
-      windSpeed: Number(request.body.windSpeed),
+      windSpeed: Number(Number(request.body.windSpeed).toFixed(2)),
       windDirection: Number(request.body.windDirection),
       pressure: Number(request.body.pressure),
-       tempTrend: [],
+      tempTrend: [],
       trendLabels: [],
 
     };
@@ -87,41 +87,41 @@ async index(request, response) {
       code: weather.weather[0].id,
       icon: weather.weather[0].icon,
       temp: weather.main.temp,
-      windSpeed: weather.wind.speed * 3.6,
+      windSpeed: Number((weather.wind.speed * 3.6).toFixed(2)),
       windDirection: weather.wind.deg,
       pressure: weather.main.pressure,
       tempTrend,
       trendLabels
   };
 
-  await reportStore.addReport(stationId, newReport);
+   await reportStore.addReport(stationId, newReport);
     response.redirect("/station/" + stationId);
   },
 
   
   // Here I am deleting station reports
-   async deleteStatReport(request, response) {
-    const stationId = request.params.stationId;
-    const reportId = request.params.reportId;
-
-    //console.log(`Deleting Report ${reportId} from Station ${stationId}`);
-    await reportStore.deleteReport(reportId);
-
-    response.redirect("/station/" + stationId);
-  },
-
    //async deleteStation(request, response) {
     //const stationId = request.params.stationId;
+    //const reportId = request.params.reportId;
+
+    //console.log(`Deleting Report ${reportId} from Station ${stationId}`);
+    //await reportStore.deleteReport(reportId);
+
+    //response.redirect("/station/" + stationId);
+  //},
+
+   async deleteStation(request, response) {
+    const stationId = request.params.stationId;
 
     //console.log(`Deleting Station ${stationId}`);
 
   //Here option to delete the station itself
-   // await stationStore.deleteStationById(stationId);
+    await stationStore.deleteStationById(stationId);
 
    // Here delete all reports under the added station
-    //await reportStore.deleteReportByStationId(stationId);
+    await reportStore.deleteReportByStationId(stationId);
 
-    //response.redirect("/dashboard");
-   //}
+    response.redirect("/dashboard");
+   }
 
 };

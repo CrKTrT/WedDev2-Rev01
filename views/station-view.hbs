@@ -2,19 +2,23 @@
 
 <section class="section">
 
-  <!-- Station Title -->
+  <!-- Station Title + Delete Button -->
   <div class="level">
     <div class="level-left">
       <h1 class="title">{{station.name}}</h1>
     </div>
 
-    <!-- Delete Station Button -->
     <div class="level-right">
       <a href="/station/{{station._id}}/delete" class="button is-danger">
         Delete Station
       </a>
     </div>
   </div>
+
+  <!-- AUTO-READ FROM OPENWEATHER (Release 4) -->
+  <a href="/station/{{station._id}}/autoread" class="button is-info mb-4">
+    Auto Read from OpenWeather
+  </a>
 
   <!-- Summary Cards -->
   {{#if latest}}
@@ -27,13 +31,17 @@
 
   <hr>
 
-  <!-- List of Reports -->
+  <!-- Reports Table -->
   {{> list-reports}}
 
   <hr>
 
-  <!-- Add Report Form -->
+  <!-- Add Manual Report -->
   {{> add-reports}}
 
 </section>
+
+
+
+
 

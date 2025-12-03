@@ -15,34 +15,31 @@
   <tbody>
     {{#each ../reports}}
       <tr>
-        <!-- Timestamp -->
         <td>{{time}}</td>
 
-        <!-- Weather Code -->
         <td>{{code}}</td>
 
-        <!-- Temperature -->
-        <td>{{temp}}</td>
+        <!-- Ensure ° symbol displays correctly -->
+        <td>{{temp}} °C</td>
 
-        <!-- Wind Speed -->
-        <td>{{windSpeed}}</td>
+        <!-- Remove long decimals via Handlebars helper -->
+        <td>{{toFixed windSpeed 2}} km/h</td>
 
-        <!-- Wind Direction -->
         <td>{{windDirection}}°</td>
 
-        <!-- Pressure -->
         <td>{{pressure}}</td>
 
-        <!-- Weather Icon -->
+        <!-- Correct icon logic -->
         <td>
-          {{#if code}}
-            <img src="http://openweathermap.org/img/wn/{{code}}d.png" alt="icon">
+          {{#if icon}}
+            <img src="https://openweathermap.org/img/wn/{{icon}}@2x.png" alt="Weather Icon">
+          {{else}}
+            <span>No icon</span>
           {{/if}}
         </td>
 
-        <!-- Delete Report Button -->
         <td>
-          <a href="/station/{{../station._id}}/deletereport/{{_id}}" 
+          <a href="/station/{{../station._id}}/deletereport/{{_id}}"
              class="button is-danger is-small">
             Delete
           </a>
@@ -51,4 +48,5 @@
     {{/each}}
   </tbody>
 </table>
+
 
