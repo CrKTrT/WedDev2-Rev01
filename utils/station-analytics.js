@@ -38,5 +38,16 @@ export const stationAnalytics = {
     }
 
     return { min, max };
+
+},
+
+//Trend line calculation for charts 
+calculateTrends(reports) {
+    return {
+      trendLabels: reports.map(r => r.time),
+      tempTrend: reports.map(r => r.temp),
+      windTrend: reports.map(r => r.windSpeed),
+      pressureTrend: reports.map(r => r.pressure),
+    };
   }
 };

@@ -7,7 +7,6 @@
     <div class="level-left">
       <h1 class="title">{{station.name}}</h1>
     </div>
-
     <div class="level-right">
       <a href="/station/{{station._id}}/delete" class="button is-danger">
         Delete Station
@@ -15,7 +14,7 @@
     </div>
   </div>
 
-  <!-- AUTO-READ FROM OPENWEATHER (Release 4) -->
+  <!-- AUTO-READ -->
   <a href="/station/{{station._id}}/autoread" class="button is-info mb-4">
     Auto Read from OpenWeather
   </a>
@@ -41,94 +40,41 @@
 
   <hr>
 
-<h2 class="title is-4">Station Trends</h2>
+  <h2 class="title is-4">Station Trends</h2>
 
-<div class="box" id="tempChart"></div>
-<div class="box" id="windChart"></div>
-<div class="box" id="pressureChart"></div>
+  {{#if trendLabels.length}}
+    <div class="box" id="tempChart"></div>
+    <div class="box" id="windChart"></div>
+    <div class="box" id="pressureChart"></div>
+  {{else}}
+    <div class="notification is-warning">
+      No trend data available. Add more reports to generate trends.
+    </div>
+  {{/if}}
 
-<script>
+  <script src="https://cdn.jsdelivr.net/npm/frappe-charts@1.2.4/dist/frappe-charts.min.iife.js"></script>
 
-  // Temperature Trend
-  const tempData = {
-    labels: [
-      {{#each trendLabels}}
-        "{{this}}",
-      {{/each}}
-    ],
-    datasets: [{
-      name: "Temperature (°C)",
-      type: "line",
-      values: [
-        {{#each tempTrend}}
-          {{this}},
-        {{/each}}
-      ]
-    }]
-  };
+  <script>
+    {{#if trendLabels.length}}
+    const tempData = {
+      labels: [{{#each trendLabels}}"{{this}}"{{#unless @last}},{{/unless}}{{/each}}],
+      datasets: [{ name: "Temperature (°C)", type: "line", values: [{{#each tempTrend}}{{this}}{{#unless @last}},{{/unless}}{{/each}}] }]
+    };
+    new frappe.Chart("#tempChart", { title: "Temperature Trend", data: tempData, type: 'line', height: 250 });
 
-  new frappe.Chart("#tempChart", {
-    title: "Temperature Trend",
-    data: tempData,
-    type: 'line',
-    height: 250
-  });
+    const windData = {
+      labels: [{{#each trendLabels}}"{{this}}"{{#unless @last}},{{/unless}}{{/each}}],
+      datasets: [{ name: "Wind Speed (km/h)", type: "line", values: [{{#each windTrend}}{{this}}{{#unless @last}},{{/unless}}{{/each}}] }]
+    };
+    new frappe.Chart("#windChart", { title: "Wind Speed Trend", data: windData, type: 'line', height: 250 });
 
-  // Wind Trend
-  const windData = {
-    labels: [
-      {{#each trendLabels}}
-        "{{this}}",
-      {{/each}}
-    ],
-    datasets: [{
-      name: "Wind Speed (km/h)",
-      type: "line",
-      values: [
-        {{#each windTrend}}
-          {{this}},
-        {{/each}}
-      ]
-    }]
-  };
-
-  new frappe.Chart("#windChart", {
-    title: "Wind Speed Trend",
-    data: windData,
-    type: 'line',
-    height: 250
-  });
-
-  // Pressure Trend
-  const pressureData = {
-    labels: [
-      {{#each trendLabels}}
-        "{{this}}",
-      {{/each}}
-    ],
-    datasets: [{
-      name: "Pressure (hPa)",
-      type: "line",
-      values: [
-        {{#each pressureTrend}}
-          {{this}},
-        {{/each}}
-      ]
-    }]
-  };
-
-  new frappe.Chart("#pressureChart", {
-    title: "Pressure Trend",
-    data: pressureData,
-    type: 'line',
-    height: 250
-  });
-
-</script>
+    const pressureData = {
+      labels: [{{#each trendLabels}}"{{this}}"{{#unless @last}},{{/unless}}{{/each}}],
+      datasets: [{ name: "Pressure (hPa)", type: "line", values: [{{#each pressureTrend}}{{this}}{{#unless @last}},{{/unless}}{{/each}}] }]
+    };
+    new frappe.Chart("#pressureChart", { title: "Pressure Trend", data: pressureData, type: 'line', height: 250 });
+    {{/if}}
+  </script>
 
 </section>
-
-
-
-
 
