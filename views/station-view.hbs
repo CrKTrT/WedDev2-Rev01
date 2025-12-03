@@ -39,6 +39,93 @@
   <!-- Add Manual Report -->
   {{> add-reports}}
 
+  <hr>
+
+<h2 class="title is-4">Station Trends</h2>
+
+<div class="box" id="tempChart"></div>
+<div class="box" id="windChart"></div>
+<div class="box" id="pressureChart"></div>
+
+<script>
+
+  // Temperature Trend
+  const tempData = {
+    labels: [
+      {{#each trendLabels}}
+        "{{this}}",
+      {{/each}}
+    ],
+    datasets: [{
+      name: "Temperature (°C)",
+      type: "line",
+      values: [
+        {{#each tempTrend}}
+          {{this}},
+        {{/each}}
+      ]
+    }]
+  };
+
+  new frappe.Chart("#tempChart", {
+    title: "Temperature Trend",
+    data: tempData,
+    type: 'line',
+    height: 250
+  });
+
+  // Wind Trend
+  const windData = {
+    labels: [
+      {{#each trendLabels}}
+        "{{this}}",
+      {{/each}}
+    ],
+    datasets: [{
+      name: "Wind Speed (km/h)",
+      type: "line",
+      values: [
+        {{#each windTrend}}
+          {{this}},
+        {{/each}}
+      ]
+    }]
+  };
+
+  new frappe.Chart("#windChart", {
+    title: "Wind Speed Trend",
+    data: windData,
+    type: 'line',
+    height: 250
+  });
+
+  // Pressure Trend
+  const pressureData = {
+    labels: [
+      {{#each trendLabels}}
+        "{{this}}",
+      {{/each}}
+    ],
+    datasets: [{
+      name: "Pressure (hPa)",
+      type: "line",
+      values: [
+        {{#each pressureTrend}}
+          {{this}},
+        {{/each}}
+      ]
+    }]
+  };
+
+  new frappe.Chart("#pressureChart", {
+    title: "Pressure Trend",
+    data: pressureData,
+    type: 'line',
+    height: 250
+  });
+
+</script>
+
 </section>
 
 

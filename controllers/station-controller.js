@@ -32,6 +32,10 @@ async index(request, response) {
       //trend line reference code addition
       tempTrend: latestReport?.tempTrend || [],
       trendLabels: latestReport?.trendLabels || [],
+      //trendLabels,
+      //tempTrend,
+      //windTrend,
+      //pressureTrend
     };
     response.render("station-view", viewData);
   },
