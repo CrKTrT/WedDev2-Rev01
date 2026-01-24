@@ -5,8 +5,10 @@ export const stationAnalytics = {
     
     if (reports.length === 0) {
       return {
-        min: { temp: null, windSpeed: null, pressure: null },
-        max: { temp: null, windSpeed: null, pressure: null }
+        //min: { temp: null, windSpeed: null, pressure: null },
+        //max: { temp: null, windSpeed: null, pressure: null }
+        min: null,
+        max: null
       };
     }
 

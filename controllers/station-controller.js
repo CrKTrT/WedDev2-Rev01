@@ -52,14 +52,20 @@ async index(request, response) {
       reports,
       latest: latestReport,
     //  max / min summary fields as added in the station-summary partial
-      minTemp: maxMin.min.temp.toFixed(2),
-      maxTemp: maxMin.max.temp.toFixed(2),
+      //minTemp: maxMin.min.temp.toFixed(2),
+      //maxTemp: maxMin.max.temp.toFixed(2),
+      minTemp: maxMin.min?.temp !== null ? maxMin.min?.temp.toFixed(2) : "--", //fix to check null case and dashbaord load issue
+      maxTemp: maxMin.max?.temp !== null ? maxMin.max?.temp.toFixed(2) : "--",
+      
+      //minWind: maxMin.min.windSpeed.toFixed(2),
+      //maxWind: maxMin.max.windSpeed.toFixed(2),
+      minWind: maxMin.min?.windSpeed !== null ? maxMin.min?.windSpeed.toFixed(2) : "--", //fix to check null case and dashbaord load issue
+      maxWind: maxMin.max?.windSpeed !== null ? maxMin.max?.windSpeed.toFixed(2) : "--", //fix to check null case and dashbaord load issue
 
-      minWind: maxMin.min.windSpeed.toFixed(2),
-      maxWind: maxMin.max.windSpeed.toFixed(2),
-
-      minPressure: maxMin.min.pressure.toFixed(2),
-      maxPressure: maxMin.max.pressure.toFixed(2),
+      //minPressure: maxMin.min.pressure.toFixed(2),
+      //maxPressure: maxMin.max.pressure.toFixed(2),
+      minPressure: maxMin.min?.pressure !== null ? maxMin.min?.pressure.toFixed(2) : "--", //fix to check null case and dashbaord load issue
+      maxPressure: maxMin.max?.pressure !== null ? maxMin.max?.pressure.toFixed(2) : "--", //fix to check null case and dashbaord load issue 
 
       //trend line reference code addition
       //tempTrend: latestReport?.tempTrend || [],
